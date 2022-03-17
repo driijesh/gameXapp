@@ -1,0 +1,32 @@
+
+.menuApp a{
+    width: 100%;
+    border-top: 1px solid rgb(255 255 255 / 48%);
+    border-bottom: 1px solid #7a7a7a;
+}
+.container{
+    display: flex;
+    padding-left: 20px;
+    flex-direction: row;
+    width: 100%;
+    margin: 10px 0;
+}
+.container i, p, h2{
+    color: white;
+}
+.container p{
+    font-family: sans-serif;
+}
+.container i{
+    font-size: 70px;
+}
+.info{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 10px;
+}
+.header{
+    position: sticky;
+    top:0;
+}

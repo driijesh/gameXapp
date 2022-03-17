@@ -1,0 +1,304 @@
+<script>
+    let loginVerification = localStorage.getItem('AdminLogin')
+    if (loginVerification !== 'yes') {
+        window.location.assign('login.html');
+    }
+</script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../index.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="parts part1">
+            <div class="sidebarTitle">
+                <h1>Admin Panel</h1>
+            </div>
+            <div class="options">
+                <a href="../index.html">
+                    <li><i class="fa-solid fa-house"></i> Dashboard</li>
+                </a>
+                <a href="events.html">
+                    <li id="now"><i class="fa-solid fa-trophy"></i> Events</li>
+                </a>
+                <a href="users.html">
+                    <li><i class="fa-solid fa-user"></i> Users</li>
+                </a>
+                <a href="ambassadors.html">
+                    <li><i class="fa-solid fa-user-secret"></i> Ambassadors</li>
+                </a>
+            </div>
+        </div>
+        <div class="parts part2">
+            <a href="../logout.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </div>
+    <div class="mainApp">
+        <div class="mainTitle">
+            <h1><i class="fa-solid fa-trophy"></i> Event Manager</h1>
+        </div>
+        <div class="widgets">
+            <div class="firstRow">
+                <div class="upcomingEvent widget">
+                    <div class="widgetTitle">
+                        <h2>Upcoming event</h2>
+                    </div>
+                    <div class="widgetDetails">
+                        <p>67<span style="font-size: 10px;">/100</span> Entries</p>
+                        <p>Revenue: 11,000Rs</p>
+                        <p>Prize: 8,000Rs</p>
+                        <p>Date: 20/03/2022</p>
+                    </div>
+                </div>
+            </div>
+            <div class="secondRow">
+                <div class="allEvents widget">
+                    <div class="widgetTitle">
+                        <h2>All Events</h2>
+                    </div>
+                    <div class="widgetDetails">
+                        <table id="eventTable" class="table">
+                            <thead>
+                                <th>ID</th>
+                                <th>Game</th>
+                                <th>Date</th>
+                                <th>Entries</th>
+                                <th>Prize</th>
+                                <th>Revenue</th>
+                                <th>Profit</th>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="addEventBtn">
+        <i id="eventPopup" class="fa-solid fa-plus"></i>
+    </div>
+    <div class="addEventPopup popup">
+        <h1>Add Event</h1>
+        <form>
+            <input id="gameName" type="text" placeholder="Game" required>
+            <input id="date" type="text" placeholder="Date" required>
+            <input id="time" type="text" placeholder="time" required>
+            <input id="totalEnties" type="text" placeholder="Total entry" required>
+            <input id="fee" type="text" placeholder="Entry fee" required>
+            <input id="prize" type="text" placeholder="Prize" required>
+            <input id="type" type="text" placeholder="type" required>
+            <button onclick="event.preventDefault();" id="addEventSubmit" type="submit">ADD</button>
+        </form>
+        <div class="addEventBtn">
+            <i id="closePopup">CANCEL</i>
+        </div>
+    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+        import { getFirestore, query, doc, getDoc, getDocs, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js"
+        const firebaseConfig = {
+            apiKey: "AIzaSyCy8Z8o59w85Ej4wh-oBnn_o8cAahhz0UU",
+            authDomain: "gamex-bd2bd.firebaseapp.com",
+            projectId: "gamex-bd2bd",
+            storageBucket: "gamex-bd2bd.appspot.com",
+            messagingSenderId: "716291758834",
+            appId: "1:716291758834:web:dd67a71a0909430ef64e6b",
+            measurementId: "G-3V6QB1VEZN"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore();
+
+        // ADDING EVENT
+        let gameName = document.getElementById('gameName');
+        let date = document.getElementById('date');
+        let time = document.getElementById('time');
+        let totalEnties = document.getElementById('totalEnties');
+        let fee = document.getElementById('fee');
+        let prize = document.getElementById('prize');
+        let type = document.getElementById('type');
+
+        // Adding Event
+        function makeid(length) {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() *
+                    charactersLength));
+            }
+            return result;
+        }
+
+        let id = makeid(8);
+        function addEvent() {
+            const docRef = addDoc(collection(db, "events"), {
+                id: id,
+                game: gameName.value,
+                date: date.value,
+                time: time.value,
+                total_Enties: totalEnties.value,
+                fee: fee.value,
+                prize: prize.value,
+                type: type.value
+            });
+            alert('Event added sucessfully!');
+        }
+        document.getElementById('addEventSubmit').addEventListener('click', addEvent);
+
+        // Showing Events
+        let eventList = [];
+        let i = 1;
+        const query_ = query(collection(db, "events"));
+        const querySnapshot = await getDocs(query_);
+        querySnapshot.forEach((doc) => {
+            eventList.push(doc.data());
+            i++;
+        });
+        let p = JSON.stringify((eventList));
+        let s = JSON.parse(p);
+        console.log(s);
+
+        let eventTable = document.getElementById('eventTable');
+        for (let index = 0; index < eventList.length; index++) {
+            let tbody = document.createElement("tbody");
+            eventTable.appendChild(tbody);
+            let tid = document.createElement('td');
+            tid.innerText = eventList[index].id;
+            tbody.appendChild(tid);
+            let game = document.createElement('td');
+            game.innerText = eventList[index].game;
+            tbody.appendChild(game);
+            let date = document.createElement('td');
+            date.innerText = eventList[index].date;
+            tbody.appendChild(date);
+            let entries = document.createElement('td');
+            entries.innerText = eventList[index].total_Enties;
+            tbody.appendChild(entries);
+            let prize = document.createElement('td');
+            prize.innerText = eventList[index].prize;
+            tbody.appendChild(prize);
+            let revenue = document.createElement('td');
+            revenue.innerText = '0';
+            tbody.appendChild(revenue);
+            let profit = document.createElement('td');
+            profit.innerText = '0';
+            tbody.appendChild(profit);
+        }
+
+
+        // POPUP
+        document.getElementById('eventPopup').addEventListener('click', function () {
+            document.querySelector('.addEventPopup').style.display = 'flex';
+        });
+        document.getElementById('closePopup').addEventListener('click', function () {
+            document.querySelector('.popup').style.display = 'none';
+        });
+
+    </script>
+</body>
+<style>
+    .addEventPopup {
+        background-color: white;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup {
+        display: none;
+    }
+
+    .addEventPopup form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .addEventPopup input {
+        font-size: 20px;
+        padding: 5px;
+        margin: 5px 0;
+    }
+
+    .addEventPopup button {
+        padding: 10px 0;
+    }
+
+    .addEventBtn {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .addEventBtn i {
+        background-color: red;
+        padding: 10px;
+        border-radius: 50px;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .addEventBtn i:hover {
+        background-color: darkred;
+    }
+
+    .table {
+        width: 100%;
+    }
+
+    table td,
+    th {
+        text-align: center;
+    }
+
+    .mainApp {
+        min-width: 1000px;
+    }
+
+    .addEvent {
+        margin-left: 30px;
+    }
+
+    .firstRow {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .widget {
+        margin-top: 30px;
+        background-color: rgb(229 9 20 / 53%);
+        ;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .widgetDetails {
+        margin-top: 10px;
+        margin-left: 5px;
+    }
+</style>
+
+</html>

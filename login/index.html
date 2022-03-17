@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<script>
+    const loginsys = localStorage.getItem('LOGIN');
+    if (loginsys === 'YES') {
+        window.location.replace('../index.html');
+    }
+</script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel=”stylesheet” href=”//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css”>
+    <script src=”https://code.jquery.com/jquery-1.12.4.js”></script>
+    <script src=”https://code.jquery.com/ui/1.12.1/jquery-ui.js”></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
+
+<body>
+
+    <div class="welcomeScreen">
+        <img id="bgg" src="../images/ffBG6.png">
+        <img id="bgg2" style="opacity: 0;display: none;position: fixed;height: 200vw;z-index: -1;transition: 1s;" src="../images/ffBG10.png">
+        <img id="bgg3" style="opacity: 0;display: none;position: fixed;height: 200vw;z-index: -1;transition: 1s;" src="../images/ffBG7.png">
+        
+        <div class="welcomeTitle">
+            <img src="../images/GameX text.png" height="40vw">
+        </div>
+
+        <div class="welcomeOptions" style="opacity: 1;transition: 0.3s;">
+            <h1 id="welcomeOptions-h1">Gaming tournaments</h1>
+            <p>A revolution in Esports.</p>
+            <div class="buttonss">
+                <button id="login-btn" class="main-btn">Log In</button>
+                <button id="signup-btn" class="secondary-btn">Create Account</button>
+            </div>
+        </div>
+
+        <div class="loginScreen">
+            <h1 style="font-size:12vw;color: #E50914;margin-bottom: 10px;">Login</h1>
+            <form id="loginForm" onsubmit="event.preventDefault();">
+                <input id="loginUsername" type="text" placeholder="Username" autocomplete="off" required>
+                <div class="passwordDiv">
+                    <input id="loginPassword" type="password" placeholder="Password" autocomplete="off" required>
+                    <i id="eye" class="fa-solid fa-eye"></i>
+                </div>
+                <input id="loginBtn" class="main-btn" type="submit" value="Login">
+            </form>
+            <div class="already">
+                <p>Don't have an Account?</p>
+                <button onclick="window.location.reload(true);">Create account</button>
+            </div>
+        </div>
+
+        <div class="signupScreen">
+            <h1 style="font-size:10vw;color: #E50914;margin-bottom: 10px;">Create Account</h1>
+            <form id="signForm" onsubmit="event.preventDefault();">
+                <div class="name">
+                    <input id="firstName" type="text" placeholder="First name" autocomplete="off" required>
+                    <input id="lastName" type="text" placeholder="Last name" autocomplete="off" required>
+                </div>
+                <input id="signUsername" type="text" placeholder="Username" autocomplete="off" required>
+                <div class="phoneNumber">
+                    <input id="cCode" type="text" placeholder="Code" value="+91" disabled autocomplete="off" required>
+                    <input id="phNumber" placeholder="Phone number"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        type="number" maxlength="10" autocomplete="off" required>
+                </div>
+                <input id="emailId" type="email" placeholder="Email ID" autocomplete="off" required>
+                <div class="passwordDiv">
+                    <input id="password" type="password" placeholder="Password" autocomplete="off" required>
+                    <i id="eye2" class="fa-solid fa-eye"></i>
+                </div>
+                <input id="referalCode" type="text" placeholder="Referal Code (optional)" autocomplete="off">
+                <input id="signupBtn" class="main-btn" type="submit" value="Create account" style="padding: 10px;">
+            </form>
+            <div class="already">
+                <p>Already have an Account?</p>
+                <button onclick="window.location.reload(true);">Login instead</button>
+            </div>
+        </div>
+    </div>
+    <div id="errorAlertBox" class="errorAlertBox">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <p id="errorMsg">s</p>
+    </div>
+</body>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+    import { getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js"
+    const firebaseConfig = {
+        apiKey: "AIzaSyCy8Z8o59w85Ej4wh-oBnn_o8cAahhz0UU",
+        authDomain: "gamex-bd2bd.firebaseapp.com",
+        projectId: "gamex-bd2bd",
+        storageBucket: "gamex-bd2bd.appspot.com",
+        messagingSenderId: "716291758834",
+        appId: "1:716291758834:web:dd67a71a0909430ef64e6b",
+        measurementId: "G-3V6QB1VEZN"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore();
+
+    // GETTING VALUEs
+    var logBtn = document.getElementById('loginBtn');
+    var signBtn = document.getElementById('signupBtn')
+
+    // Login Details
+    let loginUsername = document.getElementById('loginUsername');
+    let loginPassword = document.getElementById('loginPassword');
+
+    async function loginUser() {
+        if (loginUsername.value !== '' && loginPassword.value !== ''){
+            var ref = doc(db, 'users', loginUsername.value.toLowerCase());
+            const docSnap = await getDoc(ref);
+            if (docSnap.exists()) {
+                let tempData = docSnap.data();
+                if (tempData['password'] == loginPassword.value.toLowerCase() && tempData['Username'] == loginUsername.value.toLowerCase()) {
+                    alertError('Success!');
+                    localStorage.setItem('LOGIN', 'YES');
+                    localStorage.setItem('username', loginUsername.value.toLowerCase());
+                    window.location.replace('../index.html');
+                }else{
+                    alertError('Invalid username OR password!');
+                }
+            }else{
+                alertError('Invalid username OR password!');
+            }
+        }else{
+            alertError('Please fill all credentials!');
+        }
+    }
+
+    logBtn.addEventListener('click', loginUser);
+
+    // Signup Details
+    let firstName = document.getElementById('firstName');
+    let lastName = document.getElementById('lastName');
+    let signUsername = document.getElementById('signUsername');
+    let cCode = document.getElementById('cCode');
+    let phNumber = document.getElementById('phNumber');
+    let emailId = document.getElementById('emailId');
+    let password = document.getElementById('password');
+    let referalCode = document.getElementById('referalCode');
+
+    // ADDING Document
+    async function createNewAccount() {
+        var ref = doc(db, 'users', signUsername.value.toLowerCase());
+        const docSnap = await getDoc(ref);
+        if (docSnap.exists()) {
+            alertError('USERNAME ALREADY EXIST!!');
+        } else {
+            var ref = doc(db, 'users', signUsername.value.toLowerCase());
+            const docRef = await setDoc(
+                ref, {
+                first_Name: firstName.value,
+                last_Name: lastName.value,
+                Username: signUsername.value.toLowerCase(),
+                country_code: cCode.value,
+                phonenumber: phNumber.value,
+                email: emailId.value.toLowerCase(),
+                password: password.value.toLowerCase(),
+                referal: referalCode.value
+            }
+            )
+                .then(() => {
+                    document.querySelector('.signupScreen').style.display = 'none';
+                    document.querySelector('.loginScreen').style.display = 'block';
+                    setTimeout(function () {
+                        document.querySelector('.loginScreen').style.marginTop = '0';
+                        document.querySelector('.loginScreen').style.opacity = '1';
+                        document.querySelector('.welcomeOptions').style.display = 'none';
+                    }, 350);
+                    alertError('Account succesfully created!');
+                })
+                .catch((error) => {
+                    alert('unsucessful operation, error: ' + error);
+                });
+        }
+    }
+    signForm.addEventListener('submit', createNewAccount);
+    
+
+// Animation
+
+    var loginButton = document.getElementById('login-btn');
+    var signupButton = document.getElementById('signup-btn');
+
+    // Login Animation 
+    loginButton.addEventListener('click', function () {
+        document.getElementById('bgg').style.opacity = '0';
+        document.getElementById('bgg').style.display = 'none';
+        document.getElementById('bgg2').style.display = 'block';
+        document.querySelector('.loginScreen').style.display = 'block';
+        document.querySelector('.welcomeOptions').style.opacity = '0';
+        setTimeout(function () {
+            document.getElementById('bgg2').style.opacity = '0.5';
+            document.querySelector('.loginScreen').style.marginTop = '0';
+            document.querySelector('.loginScreen').style.opacity = '1';
+            document.querySelector('.welcomeOptions').style.display = 'none';
+        }, 350);
+    })
+
+    // Signup Animation 
+    signupButton.addEventListener('click', function () {
+        document.getElementById('bgg').style.opacity = '0';
+        document.getElementById('bgg').style.display = 'none';
+        document.getElementById('bgg3').style.display = 'block';
+        document.querySelector('.signupScreen').style.display = 'block';
+        document.querySelector('.welcomeOptions').style.opacity = '0';
+        setTimeout(function () {
+            document.getElementById('bgg3').style.opacity = '1';
+            document.querySelector('.signupScreen').style.marginTop = '0';
+            document.querySelector('.signupScreen').style.opacity = '1';
+            document.querySelector('.welcomeOptions').style.display = 'none';
+        }, 350);
+    })
+
+// Importants
+
+    // Password toggle
+    document.getElementById('eye').addEventListener('click', function(){
+        let toggleSwitch = document.getElementById('loginPassword');
+        if (toggleSwitch.type == 'password') {
+            document.getElementById('eye').classList.remove('fa-eye');
+            document.getElementById('eye').classList.add('fa-eye-slash');
+            toggleSwitch.type = 'text';
+        }else{
+            document.getElementById('eye').classList.remove('fa-eye-slash');
+            document.getElementById('eye').classList.add('fa-eye');
+            toggleSwitch.type = 'password';
+        }
+        
+    })
+    document.getElementById('eye2').addEventListener('click', function(){
+        let toggleSwitch = document.getElementById('password');
+        if (toggleSwitch.type == 'password') {
+            document.getElementById('eye2').classList.remove('fa-eye');
+            document.getElementById('eye2').classList.add('fa-eye-slash');
+            toggleSwitch.type = 'text';
+        }else{
+            document.getElementById('eye2').classList.remove('fa-eye-slash');
+            document.getElementById('eye2').classList.add('fa-eye');
+            toggleSwitch.type = 'password';
+        }
+        
+    })
+
+
+    // Login button preventDefault
+    document.getElementById('loginBtn').addEventListener('click', function (event) {
+        event.preventDefault();
+    })
+    function alertError(errorMsgg) {
+        document.getElementById('errorMsg').innerText = errorMsgg;
+        document.querySelector('.errorAlertBox').style.opacity = '1';
+        setTimeout(() => {
+            document.querySelector('.errorAlertBox').style.opacity = '0';
+        }, 5000);
+    }
+    $(function () {
+        $('#signUsername').on('keypress', function (e) {
+            if (e.which == 32) {
+                alertError('SPACE not allowed in username!!');
+                setTimeout(() => {
+                    document.querySelector('.errorAlertBox').style.transition = '1s';
+                }, 5000);
+                document.querySelector('.errorAlertBox').style.transition = '0.1s';
+                return false;
+            }
+        });
+    });
+</script>
+
+</html>

@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Roboto+Condensed&display=swap');
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Poppins;
+}
+
+.mainApp{
+    margin-bottom: 100px;
+}
+
+.bgImage, .bgImage img{
+    width: 100%;
+}
+
+body{
+    background-color: black;
+}
+
+.bgImage{
+    z-index: -10;
+}
+
+.tournaments{
+    background-color: #181818;
+    padding: 10px;
+    z-index: 2;
+    margin: 10px;
+    margin-top: 40px;
+    border-radius: 8px;
+    color: #E50914;
+}
+
+.compartments{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    margin-top: -45px;
+}
+
+.firstRow{
+    display: flex;
+}
+.tournamentsList{
+    margin: 10px 0;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.4);
+    border-radius: 5px;
+    background-color: #222222;
+}
+
+.gameIcon{
+    display: flex;
+    align-items: center;
+}
+
+.tournamentsList .gameIcon img{
+    border-radius: 10px;
+}
+
+.details{
+    margin-left: 10px;
+    color: white;
+}
+
+.joinButton{
+    margin: 10px;
+    /* width: 100%; */
+    display: flex;
+    justify-content: end;
+}
+
+.joinButton #joinBtn{
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    background-color: #E50914;
+    color: white;
+    border: none;
+    font-size: 16px;
+}
+
+.menu{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    z-index: 10;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    position: fixed;
+    bottom: 0;
+}
+
+.menu i{
+    margin: 10px;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.badges a{
+    margin: 0 10px;
+    color: white;
+    font-family: sans-serif;
+    background-color: rgb(0 107 255);
+    padding: 5px;
+    border-radius: 4px;
+}
+
+
+.moreDetails{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.firstRowBadges{
+    display: flex;
+    justify-content: space-between;
+}
+
+.badges{
+    display: flex;
+    align-items: center;
+    /* width: 70%; */
+}
+.snd{
+    margin-top: 20px;
+}
+.blankDiv{
+    height: 80px;
+    width: 100%;
+    background-color: black;
+}
+.creditDiv p{
+    padding: 10px 0;
+    color: white;
+    text-align: center;
+}
+.creditDiv p span{
+    color: #E50914;
+    text-decoration: underline;
+    cursor: pointer;
+}

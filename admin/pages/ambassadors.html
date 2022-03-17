@@ -1,0 +1,40 @@
+<script>
+    let loginVerification = localStorage.getItem('AdminLogin')
+    if (loginVerification !== 'yes') {
+        window.location.assign('login.html');
+    }
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambassador Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="parts part1">
+            <div class="sidebarTitle">
+                <h1>Admin Panel</h1>
+            </div>
+            <div class="options">
+                <a href="../index.html"><li><i class="fa-solid fa-house"></i> Dashboard</li></a>
+                <a href="events.html"><li><i class="fa-solid fa-trophy"></i> Events</li></a>
+                <a href="users.html"><li><i class="fa-solid fa-user"></i> Users</li></a>
+                <a href="ambassadors.html"><li id="now"><i class="fa-solid fa-user-secret"></i> Ambassadors</li></a>
+            </div>
+        </div>
+        <div class="parts part2">
+            <a href="../logout.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </div>
+    <div class="mainApp">
+        <div class="mainTitle">
+            <h1><i class="fa-solid fa-user"></i> Ambassador Manager</h1>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    let username = localStorage.getItem('NAME');
+    const loginsys = localStorage.getItem('LOGIN');
+    if (loginsys != 'YES' || loginsys == '') {
+        window.location.replace('login/');
+    }
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>WELCOME</title>
+</head>
+
+<body>
+    <div class="mainApp">
+        <div class="bgImage">
+            <img src="images/one.jpg">
+        </div>
+        <div class="compartments">
+            <div class="tournaments">
+                <div class="divTitle">
+                    <h1><i class="fa-solid fa-trophy"></i> Tournaments</h1>
+                </div>
+                <div style="display: none;" id="tournamentListError" class="tournamentsList">
+                    <h2 style="text-align: center;color: white;">Tournaments starting soon!!</h2>
+                    <p style="color: #fff;font-size: 15px;text-align: center;">Please wait for some hours!!</p>
+                </div>
+            </div>
+
+            <div class="tournaments" style="margin-top: 40px;">
+                <div class="divTitle">
+                    <h1><i class="fa-solid fa-gift"></i> Giveaways</h1>
+                </div>
+                <div class="tournamentsList">
+                    <h2 style="text-align: center;color: white;">Coming soon!</h2>
+                </div>
+                <!-- <div class="tournamentsList">
+                    <div class="firstRow">
+                        <div class="gameIcon">
+                            <img src="https://adixesports.com/wp-content/uploads/2021/06/5e25b49e44c31eda65552f29cf7f023f_compress6.jpg"
+                                height="60px">
+                        </div>
+                        <div class="details">
+                            <h3>Prize: 1000UC</h3>
+                            <p>7 Days To End...</p>
+                        </div>
+                    </div>
+                    <div class="moreDetails">
+                        <div class="badges">
+                            <a>Free entry</a>
+                        </div>
+                        <div class="joinButton">
+                            <button>ENTER NOW</button>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="tournaments" style="margin-top: 40px;">
+                <div class="divTitle">
+                    <h1><i class="fa-solid fa-medal"></i> Leaderboard</h1>
+                </div>
+                <div class="tournamentsList">
+                    <h2 style="text-align: center;color: white;">Coming soon!</h2>
+                </div>
+                <!-- <div class="tournamentsList">
+                    <div class="firstRow">
+                        <div class="gameIcon">
+                            <img src="https://i.pinimg.com/originals/1e/ba/fb/1ebafba2f51589ad1bfd5ee406d6b3c9.jpg"
+                                height="60px">
+                        </div>
+                        <div class="details">
+                            <h3>Drijesh Solanki</h3>
+                            <p>15 Wins <span style="color: rgba(0, 255, 0, 0.441);">(18,650Rs)</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tournamentsList">
+                    <div class="firstRow">
+                        <div class="gameIcon">
+                            <img src="https://img.myloview.com/stickers/n-letter-logo-design-initial-abstract-n-logotype-vector-template-letter-n-logo-design-template-element-400-277117854.jpg"
+                                height="60px">
+                        </div>
+                        <div class="details">
+                            <h3>Nirav Chauhan</h3>
+                            <p>13 Wins <span style="color: rgba(0, 255, 0, 0.441);">(15,250Rs)</span></p>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="creditDiv">
+                <p>Made By <span>Drijesh Solanki</span></p>
+            </div>
+            <div class="blankDiv">
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <i class="fa-solid fa-trophy"></i>
+        <i class="fa-solid fa-globe"></i>
+        <i class="fa-solid fa-house" style="border-radius:5px;color: #E50914;background-color:#fff ;"></i>
+        <i class="fa-solid fa-gift"></i>
+        <i class="fa-solid fa-user"></i>
+    </div>
+</body>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+    import { getFirestore, query, doc, getDoc, getDocs, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js"
+    const firebaseConfig = {
+        apiKey: "AIzaSyCy8Z8o59w85Ej4wh-oBnn_o8cAahhz0UU",
+        authDomain: "gamex-bd2bd.firebaseapp.com",
+        projectId: "gamex-bd2bd",
+        storageBucket: "gamex-bd2bd.appspot.com",
+        messagingSenderId: "716291758834",
+        appId: "1:716291758834:web:dd67a71a0909430ef64e6b",
+        measurementId: "G-3V6QB1VEZN"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore();
+
+    // Showing Events
+    let eventList = [];
+    let i = 1;
+    const query_ = query(collection(db, "events"));
+    const querySnapshot = await getDocs(query_);
+    querySnapshot.forEach((doc) => {
+        eventList.push(doc.data());
+        i++;
+    });
+    let p = JSON.stringify((eventList));
+    let s = JSON.parse(p);
+    console.log(s);
+    if (eventList.length == 0) {
+        document.getElementById('tournamentListError').style.display = 'block';
+        console.log(1)
+    }
+    let tournamentsDiv = document.querySelector('.tournaments');
+    let eventTable = document.getElementById('eventTable');
+    for (let index = 0; index < eventList.length; index++) {
+        // Making List Div
+        let tournamentsList = document.createElement('div');
+        tournamentsList.className = 'tournamentsList';
+        tournamentsDiv.appendChild(tournamentsList);
+
+        // Making Rows Divs
+        let firstRow = document.createElement('div');
+        firstRow.className = 'firstRow';
+        tournamentsList.appendChild(firstRow);
+
+        // Firstrow Div
+        let gameIcon = document.createElement('div');
+        gameIcon.className = 'gameIcon';
+        firstRow.appendChild(gameIcon);
+        let img = document.createElement('img');
+        img.style.height = '60px';
+        gameIcon.appendChild(img);
+        if (eventList[index].game == 'BGMI') {
+            img.src = 'https://officialpanda.com/wp-content/uploads/2021/09/IMG-20210924-WA0006.jpg';
+        }
+        if (eventList[index].game == 'Free Fire') {
+            img.src = 'https://img.utdstc.com/icon/24c/99b/24c99b60c754cd4f1b1f17bc5ee36a2ae6a0e7918d24c0cb1793c900c8d41b97:200';
+        }
+        let details = document.createElement('div');
+        details.className = 'details';
+        firstRow.appendChild(details);
+        let prize = document.createElement('h3');
+        prize.innerText = 'Prize: Rs.' + eventList[index].prize;
+        details.appendChild(prize);
+        let time = document.createElement('p');
+        time.innerText = eventList[index].date + ' - ' + eventList[index].time;
+        details.appendChild(time);
+
+        // moreDetails
+        let moreDetails = document.createElement('div');
+        moreDetails.className = 'moreDetails';
+        tournamentsList.appendChild(moreDetails);
+        let badges = document.createElement('div');
+        badges.className = 'badges';
+        moreDetails.appendChild(badges);
+        let badge1 = document.createElement('a');
+        let badge2 = document.createElement('a');
+        badge1.innerText = eventList[index].game;
+        badge2.innerText = 'SOLO';
+        badges.appendChild(badge1);
+        badges.appendChild(badge2);
+        let joinButton = document.createElement('div');
+        joinButton.className = 'joinButton';
+        moreDetails.appendChild(joinButton);
+        let joinBtn = document.createElement('a');
+        joinBtn.id = 'joinBtn';
+        joinBtn.href = 'tournament/index.html?id=' + eventList[index].id;
+        joinBtn.innerText = 'JOIN NOW';
+        joinButton.appendChild(joinBtn);
+    }
+    document.addEventListener('DOMContentLoaded', showEvents);
+</script>
+
+</html>

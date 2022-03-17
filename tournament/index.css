@@ -1,0 +1,43 @@
+.tournamentsList p{
+    margin-top: 5px;
+    margin-left: 5px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+form input{
+    font-size: 16px;
+    padding: 5px;
+    margin: 10px 0;
+}
+.agreement{
+    display: flex;
+    align-items: center;
+    color: white;
+}
+.agreement label{
+    margin-left: 5px;
+}
+form input:focus{
+    outline: 1px solid red;
+}
+form input[type=button]{
+    border: none;
+    background-color: rgb(0, 255, 38);
+    cursor: pointer;
+    /* transition: 0.3s; */
+}
+form input[type=submit]:hover{
+    background-color: rgb(90, 255, 90);
+    box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.4);
+}
+#tournamentDetails p{
+    color: white;
+    margin-left: 15px;
+}
+#tournamentDetails h2{
+    margin-top: 10px;
+    margin-left: 5px;
+}

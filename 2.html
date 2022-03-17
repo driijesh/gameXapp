@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    let username = localStorage.getItem('NAME');
+    const loginsys = localStorage.getItem('LOGIN');
+    if (loginsys != 'TRUE' || loginsys == '') {
+        window.location.replace('login/');
+    }
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameX</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/index5.css">
+    <link rel="stylesheet" href="css/index4.css">
+    <link rel="stylesheet" href="css/index2.css">
+    <link rel="stylesheet" href="css/index3.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+<style>
+    .swiper {
+        display: flex;
+    }
+    
+    .swiper-wrapper img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .menu button {
+        background-color: rgb(21, 21, 21);
+        border: none;
+    }
+
+    .swiper-slide {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+        /* 16:9 Aspect Ratio */
+    }
+
+    .swiper-slide img {
+        position: absolute;
+        top: 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .loading {
+        position: absolute;
+        z-index: 101;
+        background-color: black;
+        height: 100vh;
+        width: 100%;
+    }
+
+    #loadingIcon {
+        height: 100px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+        animation: spin 0.8s infinite;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<body>
+    <div class="loading">
+        <img id="loadingIcon" src="loading.png">
+    </div>
+    <div id="header" class="header" style="position: sticky;top:0;">
+        <div class="menu">
+            <button onclick="menu()"><i class="fas fa-bars"></i></button>
+        </div>
+        <div class="logo">
+            <h1>GameX</h1>
+        </div>
+        <div class="user"><i class="fas fa-user-circle"></i></div>
+    </div>
+
+    <div id="app" class="app">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"> <img src="https://i.imgur.com/8W6rUxw.jpeg">
+                </div>
+                <div class="swiper-slide"> <img
+                        src="https://www.gamepur.com/wp-content/uploads/2021/01/21021823/Garena-Free-Fire.jpg" alt="">
+                </div>
+                <div class="swiper-slide"> <img src="https://i.ibb.co/mzGGrDH/1.jpg" alt="">
+                </div>
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+
+        <div class="latest-box">
+
+            <div class="latest-title">
+                <h2>LATEST</h2>
+            </div>
+            <div class="posts-container">
+                <div class="card">
+                    <div class="image"><img src="https://i.ibb.co/mzGGrDH/1.jpg" alt=""></div>
+                    <div class="post-desc">
+                        <p>GameX is organizing first tournament on 20th February 2022, Be Ready!!</p>
+                    </div>
+                </div>
+                <div class="card en">
+                    <div class="image"><img src="https://i.imgur.com/3c7Xn97.jpeg"></div>
+                    <div class="post-desc">
+                        <p>2nd tournament coming soon!</p>
+                    </div>
+                </div>
+                <div class="card en">
+                    <div class="image"><img src="https://i.imgur.com/3c7Xn97.jpeg"></div>
+                    <div class="post-desc">
+                        <p>3rd tournament coming soon!</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tournament">
+
+            <div class="latest-title">
+                <h2 id="llatest-title">TOURNAMENTS</h3>
+            </div>
+
+            <div class="tournament-list">
+                <div class="tournament">
+                    <div class="t-icon">
+
+                    </div>
+                    <div class="t-details">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <div class="socials">
+                <i class="fab fa-twitter-square"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-youtube-square"></i>
+                <i class="fab fa-discord"></i>
+            </div>
+            <h1>Game<span>X</span></h1>
+            <p>&copy GameX, Inc. Arena of Legends, GameX, And any logos are Associated with GameX, Inc. </p>
+        </div>
+    </div>
+
+
+
+    <div id="menuApp" class="menuApp" style="z-index:200;">
+        <div class="container">
+            <i class="fas fa-user-circle"></i>
+            <div class="info">
+                <h2 id="info_username">Username</h2>
+                <p id="info_address">Address</p>
+            </div>
+        </div>
+        <div class="menuOptions">
+            <a href="#">
+                <li><i class="fas fa-home"></i> HOME</li>
+            </a>
+            <a href="#">
+                <li><i class="fas fa-trophy"></i> Tournaments</li>
+            </a>
+            <a href="#">
+                <li><i class="fas fa-medal"></i> Leaderboard</li>
+            </a>
+            <a href="#">
+                <li><i class="fas fa-user-cog"></i> Admin Panel</li>
+            </a>
+            <a href="#">
+                <li><i class="fab fa-instagram"></i> Follow on Instagram</li>
+            </a>
+            <a style="color:red;" href="logout.html">
+                <li><i class="fas fa-sign-out-alt"></i> LOGOUT</li>
+            </a>
+        </div>
+        <div class="closingbtn">
+            <button onclick="closeMenu()" id="closeMenu"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+</body>
+<script>
+    document.getElementById('info_username').innerText = localStorage.getItem('NAME');
+    document.getElementById('info_address').innerText = localStorage.getItem('ADDRESS');
+    window.addEventListener("load", function () {
+        const loader = document.querySelector('.loading');
+        loader.className += " hidden";
+    })
+    function joinNow() {
+        window.location.replace('tournament/');
+    }
+    document.getElementById('joinNow').addEventListener('click', joinNow);
+</script>
+<script src="script.js"></script>
+<script type="module" src="module.js"></script>
+
+</html>

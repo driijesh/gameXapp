@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
+.tournament{
+    position: relative;
+    margin-top: 40px;
+    background-image: url(../background.png);
+    background-size: cover;
+    height: 80vh;
+}
+.tournament *{
+    /* border: 1px solid red; */
+}
+.torBg{
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.tournament h1{
+    color: white;
+}
+.firstDiv{
+    display: flex;
+    flex-direction: column;
+    height: 26.6vh;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+.secondDiv{
+    display: flex;
+    flex-direction: column;
+    height: 26.6vh;
+}
+.thirdDiv{
+    display: flex;
+    flex-direction: column;
+    height: 26.6vh;
+    padding-left: 10px;
+    justify-content: end;
+    padding-bottom: 37px;
+}
+.thirdDiv h1{
+    text-align: left;
+    font-family: Poppins;
+    margin-top: -15px;
+}
+.prizePool{
+    text-align: left;
+    margin-top: -10px;
+    font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+}
+#aol{
+    font-size: 25px;
+}
+#championship{
+    font-size: 35px;
+}
+#joinNow{
+    background-color: red;
+    color: white;
+    font-family: 'Poppins';
+    /* height: 49px; */
+    font-size: 40px;
+    border: none;
+    padding: 5px 5px;
+}
+.footer{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: black;
+}
+.footer p, .footer h1, .footer i{
+    color: white;
+    text-align: center;
+}
+.footer p{
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+.socials{
+    margin: 20px 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.socials i{
+    font-size: 30px;
+    margin: 0 10px;
+}
+.footer h1 span{
+    color: red;
+}

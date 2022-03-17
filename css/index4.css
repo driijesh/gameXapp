@@ -1,0 +1,31 @@
+.latest-box{
+    margin-top: 30px;
+}
+
+.latest-title h2{
+    color: rgb(230, 0, 0);
+    font-size: 45px;
+}
+.image img{
+    height: 100%;
+    width: 100%;
+}
+.posts-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.en{
+    margin-left: 25px;
+}
+.card p{
+    margin-top: 10px;
+    width: 280px;
+}
+.card .image{
+    height: 180px;
+    width: 280px;
+    background-color: greenyellow;
+}

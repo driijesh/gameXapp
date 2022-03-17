@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+
+<body>
+    <div id="body">
+
+    </div>
+</body>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+    import { query, orderBy, limit, getFirestore, doc, getDoc, getDocs, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js"
+
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCy8Z8o59w85Ej4wh-oBnn_o8cAahhz0UU",
+        authDomain: "gamex-bd2bd.firebaseapp.com",
+        databaseURL: "https://gamex-bd2bd-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "gamex-bd2bd",
+        storageBucket: "gamex-bd2bd.appspot.com",
+        messagingSenderId: "716291758834",
+        appId: "1:716291758834:web:de4d40f4c24f60f0f64e6b",
+        measurementId: "G-F75J710R85"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore();
+
+    let userList = [];
+    let i = 1;
+    const query_ = query(collection(db, "users"));
+    const querySnapshot = await getDocs(query_);
+    querySnapshot.forEach((doc) => {
+        userList.push(doc.data());
+        i++;
+    });
+    let p = JSON.stringify((userList));
+    let s = JSON.parse(p);
+    console.log(s);
+
+    let bodyy = document.getElementById('body');
+    for (let index = 0; index < userList.length; index++) {
+        let name = document.createElement("p");
+        let numm = index + 1;
+        name.innerText = userList[index].Username;
+        bodyy.appendChild(name);   
+    }
+
+</script>
+
+</html>

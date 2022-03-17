@@ -1,0 +1,23 @@
+form select{
+    padding: 10px;
+}
+
+select option{
+    width: 50%;
+}
+
+select{
+    margin: 10px 0;
+    background-color: #121212;
+    color: white;
+    border: none;
+    padding-left: 10px;
+}
+#msg{
+    margin-bottom: 10px;
+    color: white;
+}
+.loginTitle h1{
+    color: white;
+    margin-bottom: 20px;
+}
